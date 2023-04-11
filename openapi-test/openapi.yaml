@@ -1,0 +1,132 @@
+openapi: "3.0.0"
+servers:
+  - url: https://disease.sh
+info:
+  version: 3.0.0
+  title: Novel COVID-19 API - Disease.sh - An open API for disease-related statistics
+  description: >
+    This is a generated connector from [Novel COVID-19 API version 3.0.0](https://disease.sh/docs/) OpenAPI Specification.
+    Ballerina connector for COVID-19 provides easy access to latest COVID-19 related data across the world. Please refer to [API documentation](https://disease.sh) for more detail.
+  license:
+    name: GNU V3
+    url: "https://github.com/disease-sh/API/blob/master/LICENSE"
+  x-display:
+    label: COVID-19
+    iconPath: "resources/covid19.svg"
+  x-init-description: |
+    The connector initialization doesn't require setting the API credentials.
+tags:
+  - name: "COVID-19: Worldometers"
+    description: "(COVID-19 data sourced from Worldometers, updated every 10 minutes)"
+  - name: "COVID-19: Vaccine"
+    description: "(COVID-19 vaccine trial data from raps.org, updated every 24 hours)"
+
+paths:
+  /v3/covid-19/all:
+    get:
+      tags:
+        - "COVID-19: Worldometers"
+      operationId: getGlobalStatus
+      x-display:
+        label: "Global Status"
+      parameters:
+        - name: yesterday
+          description: Enter `true`(1) to receive data reported a day ago. Default is `false`(0)
+          in: query
+          schema:
+            type: string
+          x-display:
+            label: "Yesterday"
+        - name: twoDaysAgo
+          description: Enter `true`(1) to receive data reported two days ago. Default is `false`(0)
+          in: query
+          schema:
+            type: string
+          x-display:
+            label: "Two Days Ago"
+        - name: allowNull
+          in: query
+          schema:
+            type: string
+          description: "By default, value is 0. Enter `1` to allow nulls to be returned"
+          x-display:
+            label: "Allow Null"
+      summary: "Get global COVID-19 totals for today, yesterday and two days ago."
+      responses:
+        "200":
+          description: Global COVID-19 status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CovidAll"
+components:
+  schemas:
+    CovidAll:
+      properties:
+        updated:
+          type: number
+          description: Last updated timestamp
+        cases:
+          type: number
+          description: Total cases
+        todayCases:
+          type: number
+          description: Today cases
+        deaths:
+          type: number
+          description: Total deaths
+        todayDeaths:
+          type: number
+          description: Today deaths
+        recovered:
+          type: number
+          description: Total recovered
+        todayRecovered:
+          type: number
+          description: Today recovered
+        active:
+          type: number
+          description: Active cases
+        critical:
+          type: number
+          description: Critical cases
+        casesPerOneMillion:
+          type: number
+          description: Cases per one million
+        deathsPerOneMillion:
+          type: number
+          description: Deaths per one million
+        tests:
+          type: number
+          description: Total number of COVID-19 tests administered
+        testsPerOneMillion:
+          type: number
+          description: COVID-19 tests for one million
+        population:
+          type: number
+          description: World population
+        oneCasePerPeople:
+          type: number
+          description: One case per people
+        oneDeathPerPeople:
+          type: number
+          description: One deaths per people
+        oneTestPerPeople:
+          type: number
+          description: One tests per people
+        activePerOneMillion:
+          type: number
+          description: Active cases per one million
+        recoveredPerOneMillion:
+          type: number
+          description: Recovered cases per one million
+        criticalPerOneMillion:
+          type: number
+          description: Critical cases per one million
+        affectedCountries:
+          type: number
+          description: Affected countries
+      description: COVID-19 global status
+externalDocs:
+  description: Find out more about this API
+  url: "https://github.com/disease-sh/API"
